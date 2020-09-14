@@ -38,7 +38,7 @@ namespace Patterns
             }
         }
 
-        internal T Instantiate()
+        public T Instantiate()
         {
             for (int i = 0; i < Count; i++)
             {
