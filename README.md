@@ -9,4 +9,4 @@ At package.json, add these line of code:
 
 and wait unity download and compile the package.
 
-for update package for a newer version, click in [Help->PackageUpdate->Patterns]
+for update package for a newer version, click in [Help->PackageUpdate->GameWorkstore.Patterns]
