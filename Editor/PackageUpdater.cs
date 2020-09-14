@@ -1,11 +1,14 @@
 ﻿using UnityEditor;
 using UnityEditor.PackageManager;
 
-public class PackageUpdater
+namespace GameWorkstore.Patterns
 {
-    [MenuItem("Help/PackageUpdate/Patterns")]
-    public static void TrackPackages()
+    public class PackageUpdater
     {
-        Client.Add("git://github.com/GameWorkstore/patterns.git");
+        [MenuItem("Help/PackageUpdate/GameWorkstore.Patterns")]
+        public static void TrackPackages()
+        {
+            Client.Add("git://github.com/GameWorkstore/GameWorkstore.Patterns.git");
+        }
     }
 }

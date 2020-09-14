@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Patterns
+namespace GameWorkstore.Patterns
 {
     public class ThreadQueue<T>
     {

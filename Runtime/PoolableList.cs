@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Patterns
+namespace GameWorkstore.Patterns
 {
     public class PoolableMonoBehaviour : MonoBehaviour
     {

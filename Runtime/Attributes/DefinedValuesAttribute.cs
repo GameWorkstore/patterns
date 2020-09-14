@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEditor;
 #endif
 
-namespace Patterns
+namespace GameWorkstore.Patterns
 {
 	/// <summary>
 	/// Create Popup with predefined values for string, int or float property
@@ -22,7 +22,7 @@ namespace Patterns
 }
 
 #if UNITY_EDITOR
-namespace Patterns.Internal
+namespace GameWorkstore.Patterns.Internal
 {
 	[CustomPropertyDrawer(typeof(DefinedValuesAttribute))]
 	public class DefinedValuesAttributeDrawer : PropertyDrawer

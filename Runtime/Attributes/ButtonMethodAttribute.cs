@@ -8,7 +8,7 @@ using System;
 using System.Text.RegularExpressions;
 using UnityEngine;
 
-namespace Patterns
+namespace GameWorkstore.Patterns
 {
 	[AttributeUsage(AttributeTargets.Method)]
 	public class ButtonMethodAttribute : PropertyAttribute
@@ -17,7 +17,7 @@ namespace Patterns
 }
 
 #if UNITY_EDITOR
-namespace Patterns.Internal
+namespace GameWorkstore.Patterns.Internal
 {
 	using System.Linq;
 	using System.Collections.Generic;

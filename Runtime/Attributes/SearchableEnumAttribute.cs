@@ -12,7 +12,7 @@ using UnityEngine;
 using UnityEditor;
 #endif
 
-namespace Patterns
+namespace GameWorkstore.Patterns
 {
 	/// <summary>
 	/// Put this attribute on a public (or SerializeField) enum in a
@@ -26,7 +26,7 @@ namespace Patterns
 }
 
 #if UNITY_EDITOR
-namespace Patterns.Internal
+namespace GameWorkstore.Patterns.Internal
 {
 	/// <summary>
 	/// Draws the custom enum selector popup for enum fields using the

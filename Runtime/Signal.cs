@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Patterns
+namespace GameWorkstore.Patterns
 {
     public struct Signal
     {

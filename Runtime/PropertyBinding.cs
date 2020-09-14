@@ -1,4 +1,4 @@
-﻿using Patterns;
+﻿using GameWorkstore.Patterns;
 
 public abstract class PropertyBinding<T>
 {

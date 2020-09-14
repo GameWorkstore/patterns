@@ -1,5 +1,5 @@
 ﻿
-namespace Patterns
+namespace GameWorkstore.Patterns
 {
     public abstract class IService
     {

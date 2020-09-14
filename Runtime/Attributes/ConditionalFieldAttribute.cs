@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEditor;
 #endif
 
-namespace Patterns
+namespace GameWorkstore.Patterns
 {
 	[AttributeUsage(AttributeTargets.Field)]
 	public class ConditionalFieldAttribute : PropertyAttribute
@@ -142,7 +142,7 @@ namespace Patterns
 	}
 }
 #if UNITY_EDITOR
-namespace Patterns.Internal
+namespace GameWorkstore.Patterns.Internal
 {
 	[CustomPropertyDrawer(typeof(ConditionalFieldAttribute))]
 	public class ConditionalFieldAttributeDrawer : PropertyDrawer

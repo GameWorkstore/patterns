@@ -6,7 +6,7 @@
 
 using UnityEngine;
 
-namespace Patterns
+namespace GameWorkstore.Patterns
 {
 	public class PositiveValueOnlyAttribute : PropertyAttribute
 	{
@@ -14,7 +14,7 @@ namespace Patterns
 }
 
 #if UNITY_EDITOR
-namespace Patterns.Internal
+namespace GameWorkstore.Patterns.Internal
 {
 	using UnityEditor;
 

@@ -4,7 +4,7 @@
 using UnityEditor;
 #endif
 
-namespace Patterns
+namespace GameWorkstore.Patterns
 {
 	public class SeparatorAttribute : PropertyAttribute
 	{
@@ -26,7 +26,7 @@ namespace Patterns
 }
 
 #if UNITY_EDITOR
-namespace Patterns.Internal
+namespace GameWorkstore.Patterns.Internal
 {
 	[CustomPropertyDrawer(typeof(SeparatorAttribute))]
 	public class SeparatorAttributeDrawer : DecoratorDrawer
