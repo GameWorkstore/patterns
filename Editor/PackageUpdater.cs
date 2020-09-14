@@ -1,4 +1,5 @@
-﻿using UnityEditor;
+﻿#if UNITY_EDITOR
+using UnityEditor;
 using UnityEditor.PackageManager;
 
 namespace GameWorkstore.Patterns
@@ -12,3 +13,4 @@ namespace GameWorkstore.Patterns
         }
     }
 }
+#endif
