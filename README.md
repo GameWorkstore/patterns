@@ -7,6 +7,16 @@ Use it your own risk!
 At package.json, add these line of code:
 > "com.gameworkstore.patterns": "https://github.com/GameWorkstore/patterns.git"
 
-and wait unity download and compile the package.
+And wait for unity to download and compile the package.
 
 for update package for a newer version, click in [Help->PackageUpdate->GameWorkstore.Patterns]
+
+# Contributions
+
+If you are using this library and want to submit a change, go ahead! Overall, this project accepts contributions if:
+- Is a bug fix;
+- Or, is a generalization of a well-known issue;
+- Or is performance improvement;
+- Or is an improvement to already supported feature.
+
+Also, you can donate to allow us to drink coffee while we improve it for you!
