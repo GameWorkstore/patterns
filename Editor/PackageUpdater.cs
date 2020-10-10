@@ -9,7 +9,7 @@ namespace GameWorkstore.Patterns
         [MenuItem("Help/PackageUpdate/GameWorkstore.Patterns")]
         public static void TrackPackages()
         {
-            Client.Add("git://github.com/GameWorkstore/GameWorkstore.Patterns.git");
+            Client.Add("git://github.com/GameWorkstore/patterns.git");
         }
     }
 }
