@@ -6,7 +6,7 @@ using UnityEngine;
 namespace GameWorkstore.Patterns
 {
     [Serializable]
-    public class HighSpeedArray<T> : IList<T>
+    public class HighSpeedArray<T> : IList<T>, IEnumerable<T>
     {
         public T[] _array = System.Array.Empty<T>();
 
@@ -323,6 +323,12 @@ namespace GameWorkstore.Patterns
             }
 
             _array[index] = item;
+        }
+
+        public T Random()
+        {
+            if (Count <= 0) return default;
+            return _array[UnityEngine.Random.Range(0, _array.Length)];
         }
 
         public void CopyTo(T[] array, int index)
