@@ -1,7 +1,7 @@
 {
   "name": "com.gameworkstore.patterns",
   "displayName": "GameWorkstore Patterns",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "unity": "2020.1",
   "keywords": ["patterns", "list", "oop", "structures"],
   "description": "GameWorkstore basic pattern structures and project helpers",
