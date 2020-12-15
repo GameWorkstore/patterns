@@ -9,9 +9,10 @@ namespace GameWorkstore.Patterns
     {
         private EventServiceMonobehaviour _behaviour;
 
-        public Signal Update = new Signal();
-        public Signal LateUpdate = new Signal();
-        public Signal ApplicationQuit = new Signal();
+        public Signal Update;
+        public Signal LateUpdate;
+        public Signal ApplicationQuit;
+        public Signal<bool> ApplicationFocus;
         public Queue<Action> ActionsPerFrame = new Queue<Action>();
 
         public override void Preprocess()
@@ -40,10 +41,7 @@ namespace GameWorkstore.Patterns
         private IEnumerator DelayedAction(Action action, float time)
         {
             yield return new WaitForSecondsRealtime(time);
-            if(action != null)
-            {
-                action();
-            }
+            action?.Invoke();
         }
 
         public void QueueAction(Action action)
@@ -56,7 +54,7 @@ namespace GameWorkstore.Patterns
             _behaviour.StopCoroutine(coroutine);
         }
 
-        public void ExecuteUpdate()
+        internal void ExecuteUpdate()
         {
             Update.Invoke();
             if (ActionsPerFrame.Count > 0)
@@ -73,14 +71,19 @@ namespace GameWorkstore.Patterns
             }
         }
 
-        public void ExecuteLateUpdate()
+        internal void ExecuteLateUpdate()
         {
             LateUpdate.Invoke();
         }
 
-        public void ExecuteApplicationQuit()
+        internal void ExecuteApplicationQuit()
         {
             ApplicationQuit.Invoke();
+        }
+
+        internal void ExecuteApplicationFocus(bool focus)
+        {
+            ApplicationFocus.Invoke(focus);
         }
     }
 
@@ -96,6 +99,11 @@ namespace GameWorkstore.Patterns
         public void LateUpdate()
         {
             EventService.ExecuteLateUpdate();
+        }
+
+        public void OnApplicationFocus(bool focus)
+        {
+            EventService.ExecuteApplicationFocus(focus);
         }
 
         public void OnApplicationQuit()
