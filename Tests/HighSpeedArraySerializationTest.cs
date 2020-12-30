@@ -14,4 +14,12 @@ namespace GameWorkstore.Patterns.Tests
             }
         }
     }
+
+    public class TestNewFunctions : MonoBehaviour
+	{
+        public void NewFunction()
+		{
+            //TODO:
+		}
+	}
 }
