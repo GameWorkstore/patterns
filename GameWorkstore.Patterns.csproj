@@ -52,27 +52,27 @@
     <ImplicitlyExpandDesignTimeFacades>false</ImplicitlyExpandDesignTimeFacades>
   </PropertyGroup>
   <ItemGroup>
-     <Compile Include="Assets\Patterns\Runtime\Service\EventService.cs" />
-     <Compile Include="Assets\Patterns\Runtime\PoolableList.cs" />
-     <Compile Include="Assets\Patterns\Runtime\Service\ServiceProvider.cs" />
-     <Compile Include="Assets\Patterns\Tests\HighSpeedArraySerializationTest.cs" />
-     <Compile Include="Assets\Patterns\Runtime\Attributes\SearchableEnumAttribute.cs" />
-     <Compile Include="Assets\Patterns\Editor\PackageUpdater.cs" />
-     <Compile Include="Assets\Patterns\Runtime\HighSpeedHashTable.cs" />
-     <Compile Include="Assets\Patterns\Runtime\PropertyBinding.cs" />
-     <Compile Include="Assets\Patterns\Runtime\Attributes\SceneAssetPathAttribute.cs" />
-     <Compile Include="Assets\Patterns\Runtime\Signal.cs" />
-     <Compile Include="Assets\Patterns\Runtime\Attributes\SeparatorAttribute.cs" />
-     <Compile Include="Assets\Patterns\Runtime\HighSpeedArray.cs" />
-     <Compile Include="Assets\Patterns\Runtime\Attributes\HelpBoxAttribute.cs" />
-     <Compile Include="Assets\Patterns\Runtime\ThreadQueue.cs" />
-     <Compile Include="Assets\Patterns\Runtime\Attributes\DefinedValuesAttribute.cs" />
-     <Compile Include="Assets\Patterns\Runtime\Attributes\ButtonMethodAttribute.cs" />
-     <Compile Include="Assets\Patterns\Runtime\Service\IService.cs" />
-     <Compile Include="Assets\Patterns\Runtime\Attributes\PositiveValueOnlyAttribute.cs" />
-     <Compile Include="Assets\Patterns\Runtime\DebugMessege.cs" />
-     <Compile Include="Assets\Patterns\Runtime\Attributes\ConditionalFieldAttribute.cs" />
-     <None Include="Assets\Patterns\GameWorkstore.Patterns.asmdef" />
+     <Compile Include="Assets\Package\Runtime\Service\EventService.cs" />
+     <Compile Include="Assets\Package\Runtime\PoolableList.cs" />
+     <Compile Include="Assets\Package\Runtime\Service\ServiceProvider.cs" />
+     <Compile Include="Assets\Package\Tests\HighSpeedArraySerializationTest.cs" />
+     <Compile Include="Assets\Package\Runtime\Attributes\SearchableEnumAttribute.cs" />
+     <Compile Include="Assets\Package\Editor\PackageUpdater.cs" />
+     <Compile Include="Assets\Package\Runtime\HighSpeedHashTable.cs" />
+     <Compile Include="Assets\Package\Runtime\PropertyBinding.cs" />
+     <Compile Include="Assets\Package\Runtime\Attributes\SceneAssetPathAttribute.cs" />
+     <Compile Include="Assets\Package\Runtime\Signal.cs" />
+     <Compile Include="Assets\Package\Runtime\Attributes\SeparatorAttribute.cs" />
+     <Compile Include="Assets\Package\Runtime\HighSpeedArray.cs" />
+     <Compile Include="Assets\Package\Runtime\Attributes\HelpBoxAttribute.cs" />
+     <Compile Include="Assets\Package\Runtime\ThreadQueue.cs" />
+     <Compile Include="Assets\Package\Runtime\Attributes\DefinedValuesAttribute.cs" />
+     <Compile Include="Assets\Package\Runtime\Attributes\ButtonMethodAttribute.cs" />
+     <Compile Include="Assets\Package\Runtime\Service\IService.cs" />
+     <Compile Include="Assets\Package\Runtime\Attributes\PositiveValueOnlyAttribute.cs" />
+     <Compile Include="Assets\Package\Runtime\DebugMessege.cs" />
+     <Compile Include="Assets\Package\Runtime\Attributes\ConditionalFieldAttribute.cs" />
+     <None Include="Assets\Package\GameWorkstore.Patterns.asmdef" />
  <Reference Include="UnityEngine">
  <HintPath>/Applications/Unity/Hub/Editor/2020.2.1f1/Unity.app/Contents/Managed/UnityEngine/UnityEngine.dll</HintPath>
  </Reference>
