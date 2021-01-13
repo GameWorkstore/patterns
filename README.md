@@ -9,7 +9,8 @@ At package.json, add these line of code:
 
 And wait for unity to download and compile the package.
 
-for update package for a newer version, click in [Help->PackageUpdate->GameWorkstore.Patterns]
+for update package for a newer version, install UpmGitExtension and update on [ Window > Package Manager ]!
+> https://github.com/mob-sakai/UpmGitExtension
 
 # Contributions
 
