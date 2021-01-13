@@ -5,7 +5,7 @@ Use it your own risk!
 # How to install
 
 At package.json, add these line of code:
-> "com.gameworkstore.patterns": "git://github.com/GameWorkstore/patterns.git"
+> "com.gameworkstore.patterns": "git://github.com/GameWorkstore/patterns.git?path=Assets/Package"
 
 And wait for unity to download and compile the package.
 
