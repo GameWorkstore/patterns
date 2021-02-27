@@ -1,14 +1,16 @@
 ﻿using UnityEngine;
 using UnityEditor;
 
-namespace GameWorkstore.Patterns
+namespace GameWorkstore.Patterns.Editor
 {
     [CustomPropertyDrawer(typeof(SceneAssetPath))]
     public class SceneAssetPathPropertyDrawer : PropertyDrawer
     {
         public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
         {
-            return 60;
+            var propertyScene = property.FindPropertyRelative("Scene");
+            var oldScene = AssetDatabase.LoadAssetAtPath<SceneAsset>(propertyScene.stringValue);
+            return oldScene ? 20 : 60;
         }
 
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
@@ -31,12 +33,14 @@ namespace GameWorkstore.Patterns
 
             var rt1 = position;
             rt1.size = new Vector2(position.size.x, 20);
-            position.position += new Vector2(0, rt1.size.y);
-            var rt2 = position;
-            rt2.size = new Vector2(position.size.x, 40);
-
             var newScene = EditorGUI.ObjectField(rt1, "Scene", oldScene, typeof(SceneAsset), false) as SceneAsset;
-            EditorGUI.HelpBox(rt2, "Scene assets can de-sync if scenes are moved in few cases, as their reference is weak. Reimport asset can fix the missing references automatically sometimes.", MessageType.Info);
+            if (!newScene)
+            {
+                position.position += new Vector2(0, rt1.size.y);
+                var rt2 = position;
+                rt2.size = new Vector2(position.size.x, 40);
+                EditorGUI.HelpBox(rt2, "SceneAssets are weak references. To ensure consistency when moving scenes, declare OnValidate() function on MonoBehaviour parent and call the OnValidate() of this variable to ensure consistenty by GUID.", MessageType.Info);
+            }
             if (!EditorGUI.EndChangeCheck()) return;
             var newPath = AssetDatabase.GetAssetPath(newScene);
             propertyScene.stringValue = newPath;

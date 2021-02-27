@@ -6,3 +6,4 @@ Logs/*
 obj/*
 *.csproj
 *.sln
+.vs/
