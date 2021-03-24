@@ -1,10 +1,10 @@
 ﻿using System;
+using UnityEngine;
 #if UNITY_EDITOR
 using UnityEditor;
-using UnityEngine;
 #endif
 
-namespace GameWorkstore.NetworkLibrary
+namespace GameWorkstore.Patterns
 {
     public enum HelpBoxType
     {
@@ -42,8 +42,11 @@ namespace GameWorkstore.NetworkLibrary
             Type = HelpBoxType.Info;
         }
     }
+}
 
 #if UNITY_EDITOR
+namespace GameWorkstore.Patterns.Internal
+{
     [CustomPropertyDrawer(typeof(HelpBox))]
     public class HelpBoxDrawer : PropertyDrawer
     {
@@ -64,5 +67,5 @@ namespace GameWorkstore.NetworkLibrary
             return info.Height;
         }
     }
-#endif
 }
+#endif
