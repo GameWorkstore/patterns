@@ -39,7 +39,7 @@ public class TestBench
     {
         ServiceProvider.Shutdown();
         var concrete = ServiceProvider.GetService<ConcreteService>();
-        var abstracted = ServiceProvider.GetService<AbstractService>();
+        var abstracted = ServiceProvider.GetAbstract<AbstractService>();
         Assert.NotNull(concrete);
         Assert.NotNull(abstracted);
         Assert.AreEqual(concrete,abstracted);
