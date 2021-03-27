@@ -7,55 +7,61 @@ namespace GameWorkstore.Patterns
 {
     public static class ServiceProvider
     {
-        private static Dictionary<Type, IService> _serviceDictionary = new Dictionary<Type, IService>();
-        private static ServicePriorityComparer _serviceSort = new ServicePriorityComparer();
+        private static readonly Dictionary<Type, IService> _services = new Dictionary<Type, IService>();
+        private static readonly ServicePriorityComparer _serviceSorter = new ServicePriorityComparer();
 
-        public static T GetService<T>() where T : IService, new()
+        public static T GetService<T>() where T : IService
         {
             Type type = typeof(T);
-            if (_serviceDictionary.TryGetValue(type, out IService service))
+            if (_services.TryGetValue(type, out IService service))
             {
                 return service as T;
             }
-            if (type.IsInterface)
-            {
-                Debug.LogError("I cant provide you with a interface service.");
-                return null;
-            }
             if (type.IsAbstract)
             {
-                Debug.LogError("I cant provide you with a abstract service.");
+                foreach(var pair in _services)
+                {
+                    if(pair.Value is T)
+                    {
+                        return pair.Value as T;
+                    }
+                }
+                Debug.LogError("[ServiceProvider]: No concrete service initialized for this abstraction.");
                 return null;
             }
-            service = new T();
+            service = (IService)Activator.CreateInstance(typeof(T));
             if(service == null)
             {
-                Debug.LogError("Error while trying to create the service.");
+                Debug.LogError("[ServiceProvider]: Error while creating " + type.Name + " service.");
                 return null;
             }
             service.Preprocess();
-            _serviceDictionary[type] = service;
+            _services[type] = service;
             return service as T;
         }
 
         public static bool RemoveService<T>() where T : IService
         {
             Type type = typeof(T);
-            if (!_serviceDictionary.ContainsKey(type)) return false;
-            IService service = _serviceDictionary[type];
+            if (!_services.ContainsKey(type)) return false;
+            IService service = _services[type];
             service.Postprocess();
-            _serviceDictionary.Remove(type);
+            _services.Remove(type);
             return true;
         }
 
-        public static void ShutdownServices()
+        /// <summary>
+        /// Destroy and clear all services.
+        /// </summary>
+        public static void Shutdown()
         {
-            List<IService> services = _serviceDictionary.Values.ToList();
-            services.Sort(_serviceSort);
+            List<IService> services = _services.Values.ToList();
+            services.Sort(_serviceSorter);
             foreach (IService service in services)
             {
                 service.Postprocess();
             }
+            _services.Clear();
         }
 
         public class ServicePriorityComparer : IComparer<IService>

@@ -113,7 +113,7 @@ namespace GameWorkstore.Patterns
 
         public void OnDestroy()
         {
-            ServiceProvider.ShutdownServices();
+            ServiceProvider.Shutdown();
         }
     }
 }
