@@ -1,0 +1,17 @@
+{
+  "name": "com.gameworkstore.patterns",
+  "version": "1.0.8",
+  "displayName": "GameWorkstore Patterns",
+  "description": "GameWorkstore basic pattern structures and project helpers",
+  "unity": "2020.1",
+  "icon": ".icon.png",
+  "keywords": ["patterns", "list", "oop", "structures"],
+  "author": {
+    "name": "Game Workstore",
+    "email": "contact@gameworkstore.com",
+    "url": "https://gameworkstore.com"
+  },
+  "dependencies": {
+    
+  }
+}
