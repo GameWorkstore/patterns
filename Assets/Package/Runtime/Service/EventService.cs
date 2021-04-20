@@ -57,18 +57,9 @@ namespace GameWorkstore.Patterns
         internal void ExecuteUpdate()
         {
             Update.Invoke();
-            if (ActionsPerFrame.Count > 0)
-            {
-                Action action = ActionsPerFrame.Dequeue();
-                try
-                {
-                    action();
-                }
-                catch(Exception e)
-                {
-                    Debug.LogError(e.Message + ":\n" + e.StackTrace);
-                }
-            }
+            if (ActionsPerFrame.Count <= 0) return;
+            var action = ActionsPerFrame.Dequeue();
+            action?.Invoke();
         }
 
         internal void ExecuteLateUpdate()

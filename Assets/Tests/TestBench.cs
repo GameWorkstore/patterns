@@ -44,4 +44,35 @@ public class TestBench
         Assert.NotNull(abstracted);
         Assert.AreEqual(concrete,abstracted);
     }
+
+    [UnityTest]
+    public IEnumerator FunctionCrashesDontPreventOtherFunctionsToExecute() {
+        var evt = ServiceProvider.GetService<EventService>();
+        int i = 0;
+        //function works
+        evt.QueueAction(() => {
+            i++;
+        });
+        //function works partially
+        bool exploded = false;
+        evt.QueueAction(() => {
+            i++;
+            try {
+                Gate gate = null;
+                gate.Release();
+            } catch {
+                exploded = true;
+            }
+        });
+        //function not works at all
+        evt.QueueAction(null);
+
+        while (evt.ActionsPerFrame.Count > 0) {
+            yield return null;
+        }
+        Assert.AreEqual(true,exploded);
+        Assert.AreEqual(2,i);
+    }
+    
+    
 }
