@@ -73,6 +73,11 @@ public class TestBench
         Assert.AreEqual(true,exploded);
         Assert.AreEqual(2,i);
     }
-    
-    
+
+    [Test]
+    public void HighSpeedArrayIsValidICollection()
+    {
+        var array = new HighSpeedArray<int>(10) { 1 };
+        Assert.Contains(1, array);
+    }
 }
