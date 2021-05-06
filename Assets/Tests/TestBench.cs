@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using GameWorkstore.Patterns;
 using NUnit.Framework;
+using UnityEditor.VersionControl;
 using UnityEngine;
 using UnityEngine.TestTools;
 
@@ -79,5 +80,15 @@ public class TestBench
     {
         var array = new HighSpeedArray<int>(10) { 1 };
         Assert.Contains(1, array);
+    }
+
+    [Test]
+    public void HighSpeedArraySetCapacityAndCountIsInSync()
+    {
+        var value = new HighSpeedArray<int>(3);
+        value.AddRange(new[]{1,2,3,4,5});
+        value.SetCapacity(3);
+        Assert.AreEqual(3,value.Capacity);
+        Assert.AreEqual(3,value.Count);
     }
 }

@@ -7,9 +7,10 @@ using UnityEngine;
 namespace GameWorkstore.Patterns
 {
     [Serializable]
-    public class HighSpeedArray<T> : IList<T>, ICollection {
+    public class HighSpeedArray<T> : IList<T>, ICollection
+    {
         [SerializeField]
-        private T[] _array = Array.Empty<T>();
+        private T[] _array;
         [SerializeField]
         private int _count;
 
@@ -30,26 +31,29 @@ namespace GameWorkstore.Patterns
             _count = 0;
         }
 
-        public HighSpeedArray(T[] array)
+        public HighSpeedArray(IEnumerable<T> list)
         {
-            _array = array.ToArray();
+            _array = list.ToArray();
             _count = _array.Length;
         }
-
-        public HighSpeedArray(IList<T> list)
-        {
-            _array = new T[list.Count];
-            _count = list.Count;
-            for (var i = 0; i < Count; i++) 
-            {
-                _array[i] = list[i];
-            }
-        }
-
+        
+        /// <summary>
+        /// Set capacity, trimming or increasing the internal array. Changes count if capacity is lower.
+        /// </summary>
+        /// <param name="capacity">new capacity</param>
         public void SetCapacity(int capacity)
         {
-            if (_array.Length >= capacity) return;
+            if (_array.Length == capacity) return;
             Array.Resize(ref _array, capacity);
+            if (_count > capacity) _count = capacity;
+        }
+        
+        /// <summary>
+        /// trim internal array to have only the current amount of elements.
+        /// </summary>
+        public void Trim()
+        {
+            SetCapacity(_count);
         }
 
         public void Add(T obj)
@@ -58,7 +62,7 @@ namespace GameWorkstore.Patterns
             {
                 var newCapacity = Mathf.CeilToInt(1.5f * Capacity);
 #if UNITY_EDITOR
-                Debug.LogWarning("Optimization: HighSpeedArray reached limit for " + typeof(T) + ". Resizing from " + Capacity + " to " + newCapacity + ". Try to allocate a large buffer for avoid this.");
+                Debug.LogWarning("Optimization: HighSpeedArray reached limit for " + typeof(T) + ". Resizing from " + Capacity + " to " + newCapacity + ". Try to allocate a large buffer for avoid this operation.");
 #endif
                 SetCapacity(newCapacity);
             }
