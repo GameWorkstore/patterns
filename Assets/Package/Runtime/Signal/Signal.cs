@@ -2,9 +2,14 @@
 
 namespace GameWorkstore.Patterns
 {
-    public struct Signal
+    public struct Signal : ISignal
     {
-        private event Action Action;
+        public event Action Action;
+
+        public void Empty()
+        {
+            Action = null;
+        }
 
         public void Invoke()
         {
@@ -22,9 +27,14 @@ namespace GameWorkstore.Patterns
         }
     }
 
-    public struct Signal<T>
+    public struct Signal<T> : ISignal<T>
     {
-        private event Action<T> Action;
+        public event Action<T> Action;
+
+        public void Empty()
+        {
+            Action = null;
+        }
 
         public void Invoke(T evt)
         {
@@ -42,9 +52,14 @@ namespace GameWorkstore.Patterns
         }
     }
 
-    public struct Signal<T,U>
+    public struct Signal<T, U> : ISignal<T, U>
     {
-        private event Action<T, U> Action;
+        public event Action<T, U> Action;
+
+        public void Empty()
+        {
+            Action = null;
+        }
 
         public void Invoke(T evt, U evu)
         {
@@ -62,9 +77,14 @@ namespace GameWorkstore.Patterns
         }
     }
 
-    public struct Signal<T, U, V>
+    public struct Signal<T, U, V> : ISignal<T, U, V>
     {
-        private event Action<T, U, V> Action;
+        public event Action<T, U, V> Action;
+
+        public void Empty()
+        {
+            Action = null;
+        }
 
         public void Invoke(T evt, U evu, V evv)
         {
