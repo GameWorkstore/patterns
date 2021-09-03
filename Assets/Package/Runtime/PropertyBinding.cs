@@ -2,7 +2,7 @@
 
 namespace GameWorkstore.Patterns
 {
-    public struct PropertyBinding<T>
+    public class PropertyBinding<T>
     {
         private bool _setup;
         public T Value { get; private set; }
