@@ -2,10 +2,10 @@
 
 namespace GameWorkstore.Patterns
 {
-    public abstract class PropertyBinding<T>
+    public struct PropertyBinding<T>
     {
-        private bool _setup = false;
-        public T Value = default;
+        private bool _setup;
+        public T Value { get; private set; }
         private readonly Signal<T> _onChange;
 
         public void Set(T valueT)
