@@ -8,6 +8,15 @@ namespace GameWorkstore.Patterns
         public T Value { get; private set; }
         private Signal<T> _onChange;
 
+        public PropertyBinding()
+        {
+        }
+
+        public PropertyBinding(T initialValue)
+        {
+            Value = initialValue;
+        }
+
         public void Set(T valueT)
         {
             if (valueT.Equals(Value) && _setup) return;
