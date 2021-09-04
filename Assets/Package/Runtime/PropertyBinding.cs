@@ -41,5 +41,20 @@ namespace GameWorkstore.Patterns
         {
             _onChange.Empty();
         }
+
+        public static implicit operator T(PropertyBinding<T> property)
+        {
+            return property.Value;
+        }
+
+        public static bool operator==(PropertyBinding<T> a, PropertyBinding<T> b)
+        {
+            return a.Value.Equals(b.Value);
+        }
+
+        public static bool operator!=(PropertyBinding<T> a, PropertyBinding<T> b)
+        {
+            return !(a == b);
+        }
     }
 }
