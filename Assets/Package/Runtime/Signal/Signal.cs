@@ -2,7 +2,7 @@
 
 namespace GameWorkstore.Patterns
 {
-    public struct Signal : ISignal
+    public class Signal : ISignal
     {
         public event Action Action;
 
@@ -27,7 +27,7 @@ namespace GameWorkstore.Patterns
         }
     }
 
-    public struct Signal<T> : ISignal<T>
+    public class Signal<T> : ISignal<T>
     {
         public event Action<T> Action;
 
@@ -52,7 +52,7 @@ namespace GameWorkstore.Patterns
         }
     }
 
-    public struct Signal<T, U> : ISignal<T, U>
+    public class Signal<T, U> : ISignal<T, U>
     {
         public event Action<T, U> Action;
 
@@ -77,7 +77,7 @@ namespace GameWorkstore.Patterns
         }
     }
 
-    public struct Signal<T, U, V> : ISignal<T, U, V>
+    public class Signal<T, U, V> : ISignal<T, U, V>
     {
         public event Action<T, U, V> Action;
 

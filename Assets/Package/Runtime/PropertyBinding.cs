@@ -6,7 +6,7 @@ namespace GameWorkstore.Patterns
     {
         private bool _setup;
         public T Value { get; private set; }
-        private Signal<T> _onChange;
+        private Signal<T> _onChange = new Signal<T>();
 
         public PropertyBinding()
         {

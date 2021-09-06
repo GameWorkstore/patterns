@@ -9,11 +9,11 @@ namespace GameWorkstore.Patterns
     {
         private EventServiceMonobehaviour _behaviour;
 
-        public Signal Update;
-        public Signal LateUpdate;
-        public Signal ApplicationQuit;
-        public Signal<bool> ApplicationFocus;
-        public Queue<Action> ActionsPerFrame = new Queue<Action>();
+        public Signal Update { get; } = new Signal();
+        public Signal LateUpdate { get; } = new Signal();
+        public Signal ApplicationQuit { get; } = new Signal();
+        public Signal<bool> ApplicationFocus { get; } = new Signal<bool>();
+        public Queue<Action> ActionsPerFrame { get; } = new Queue<Action>();
 
         public override void Preprocess()
         {
