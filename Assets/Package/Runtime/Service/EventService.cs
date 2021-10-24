@@ -15,11 +15,13 @@ namespace GameWorkstore.Patterns
         public Signal<bool> ApplicationFocus { get; } = new Signal<bool>();
         public Queue<Action> ActionsPerFrame { get; } = new Queue<Action>();
 
+        public bool IsExitApplicationStarted = false;
+
         public override void Preprocess()
         {
+            if (IsExitApplicationStarted) return;
             _behaviour = new GameObject("EventService").AddComponent<EventServiceMonobehaviour>();
             _behaviour.EventService = this;
-            if (!Application.isPlaying) return;
             UnityEngine.Object.DontDestroyOnLoad(_behaviour.gameObject);
         }
 
@@ -70,6 +72,7 @@ namespace GameWorkstore.Patterns
         internal void ExecuteApplicationQuit()
         {
             ApplicationQuit.Invoke();
+            IsExitApplicationStarted = true;
         }
 
         internal void ExecuteApplicationFocus(bool focus)
