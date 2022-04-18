@@ -12,6 +12,7 @@ namespace GameWorkstore.Patterns
         public Signal Update { get; } = new Signal();
         public Signal LateUpdate { get; } = new Signal();
         public Signal ApplicationQuit { get; } = new Signal();
+        public Signal FixedUpdate { get; } = new Signal();
         public Signal<bool> ApplicationFocus { get; } = new Signal<bool>();
         public Queue<Action> ActionsPerFrame { get; } = new Queue<Action>();
 
@@ -69,6 +70,11 @@ namespace GameWorkstore.Patterns
             LateUpdate.Invoke();
         }
 
+        internal void ExecuteFixedUpdate()
+        {
+            FixedUpdate.Invoke();
+        }
+
         internal void ExecuteApplicationQuit()
         {
             ApplicationQuit.Invoke();
@@ -79,7 +85,7 @@ namespace GameWorkstore.Patterns
         {
             ApplicationFocus.Invoke(focus);
         }
-    }
+	}
 
     public class EventServiceMonobehaviour : MonoBehaviour
     {
@@ -105,7 +111,12 @@ namespace GameWorkstore.Patterns
             EventService.ExecuteApplicationQuit();
         }
 
-        public void OnDestroy()
+		public void FixedUpdate()
+		{
+            EventService.ExecuteFixedUpdate();
+		}
+
+		public void OnDestroy()
         {
             ServiceProvider.Shutdown();
         }
