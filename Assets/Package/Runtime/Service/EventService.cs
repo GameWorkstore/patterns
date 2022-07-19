@@ -22,13 +22,13 @@ namespace GameWorkstore.Patterns
         {
             if (IsExitApplicationStarted) return;
             _behaviour = new GameObject("EventService").AddComponent<EventServiceMonobehaviour>();
+            _behaviour.gameObject.hideFlags = HideFlags.HideAndDontSave;
             _behaviour.EventService = this;
             UnityEngine.Object.DontDestroyOnLoad(_behaviour.gameObject);
         }
 
         public override void Postprocess()
         {
-            UnityEngine.Object.Destroy(_behaviour.gameObject);
         }
 
         public Coroutine StartCoroutine(IEnumerator coroutine)

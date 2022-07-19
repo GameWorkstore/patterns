@@ -12,7 +12,7 @@ public class FakeServiceListener : MonoBehaviour
 
     private void OnUpdate()
     {
-        
+        Debug.Log("Exists!");
     }
 
     private void OnDestroy()
