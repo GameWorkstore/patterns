@@ -212,7 +212,7 @@ namespace GameWorkstore.Patterns
             public void Set(Action cont) => continuation = cont;
             public bool IsCompleted()
             {
-                if (operation.isDone)
+                if (operation == null || operation != null && operation.isDone)
                 {
                     continuation();
                     return true;
