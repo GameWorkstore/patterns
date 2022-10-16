@@ -6,14 +6,14 @@ Use it your own risk!
 
 At package.json, add these lines of code:
 ```json
-"com.gameworkstore.patterns": "git://github.com/GameWorkstore/patterns.git#1.1.2"
+"com.gameworkstore.patterns": "https://github.com/GameWorkstore/patterns.git#1.1.2"
 ```
 
 And wait for unity to download and compile the package.
 
 you can upgrade your version by including the release version at end of the link:
 ```json
-"com.gameworkstore.patterns": "git://github.com/GameWorkstore/patterns.git#1.1.6"
+"com.gameworkstore.patterns": "https://github.com/GameWorkstore/patterns.git#1.2.0"
 ```
 
 # Contributions
