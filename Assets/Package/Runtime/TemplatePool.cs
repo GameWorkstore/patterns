@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEditor.Progress;
 
 namespace GameWorkstore.Patterns
 {
@@ -23,6 +24,7 @@ namespace GameWorkstore.Patterns
         }
 
         public int Count => _array.Count;
+        public int Available => _pool.Count;
         public bool IsSynchronized => false;
         public object SyncRoot { get; } = new object();
 
@@ -47,21 +49,30 @@ namespace GameWorkstore.Patterns
             }
         }
 
+        /// <summary>
+        /// Instantiate and Adds object to reference list.
+        /// </summary>
+        /// <returns></returns>
         public T Instantiate()
         {
-            return Instantiate(out _);
+            var item = FastInstantiate();
+            _array.Add(item);
+            return item;
         }
 
-        public T Instantiate(out int index)
+        /// <summary>
+        /// Instantiate but don't add it reference list.
+        /// Fast, but reference will be out of sync.
+        /// Use FastDispose to return it to pool.
+        /// </summary>
+        /// <returns></returns>
+        public T FastInstantiate()
         {
-            var item = _pool.Dequeue();
-            if (item == null)
+            if (!_pool.TryDequeue(out var item))
             {
                 item = UnityEngine.Object.Instantiate(Template, Parent, WorldPositionStaysWhenInstantiating);
             }
             Use(item);
-            index = _array.Count;
-            _array.Add(item);
             return item;
         }
 
@@ -71,6 +82,9 @@ namespace GameWorkstore.Patterns
             item.gameObject.SetActive(true);
         }
 
+        /// <summary>
+        /// Return item to pool. Item can be used on future. Slow, but safe.
+        /// </summary>
         public void Dispose(T item)
         {
             if (!_array.Remove(item))
@@ -78,6 +92,19 @@ namespace GameWorkstore.Patterns
                 Debug.LogError("Item not created by this pool.");
                 return;
             }
+            FastDispose(item);
+        }
+
+        /// <summary>
+        /// Return item to pool. Item can be used on future. Fast, but reference will be out of sync.
+        /// Fast, but reference will be out of sync.
+        /// Use FastDispose to return it to pool.
+        /// </summary>
+        /// <param name="item">Returned instance at Instantiate();</param>
+        /// <param name="index">Index returned at Instantiate()</param>
+        public void FastDispose(T item)
+        {
+            _pool.Enqueue(item);
             if (item.gameObject.activeSelf)
             {
                 item.gameObject.SetActive(false);

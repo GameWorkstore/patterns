@@ -241,11 +241,15 @@ namespace GameWorkstore.Patterns
 
         public void RemoveAt(int index)
         {
-            if (index >= _count) return;
+            if (index >= _count)
+            {
+                throw new ArgumentException($"Index {index} is higher than Count {_count}");
+            }
             var last = _count - 1;
             _array[index] = _array[last];
             _array[last] = default;
             _count--;
+            return;
         }
 
         public bool Remove(T entry)
