@@ -15,6 +15,7 @@ namespace GameWorkstore.Patterns
         private int _count;
 
         public int Count => _count;
+        public bool IsReadOnly => false;
         public bool IsSynchronized => false;
         public object SyncRoot { get; } = new object();
         public int Capacity => _array.Length;
@@ -36,7 +37,7 @@ namespace GameWorkstore.Patterns
             _array = list.ToArray();
             _count = _array.Length;
         }
-        
+
         /// <summary>
         /// Set capacity, trimming or increasing the internal array. Changes count if capacity is lower.
         /// </summary>
@@ -47,7 +48,7 @@ namespace GameWorkstore.Patterns
             Array.Resize(ref _array, capacity);
             if (_count > capacity) _count = capacity;
         }
-        
+
         /// <summary>
         /// trim internal array to have only the current amount of elements.
         /// </summary>
@@ -183,7 +184,8 @@ namespace GameWorkstore.Patterns
 
         public void Remove(Predicate<T> predicate)
         {
-            for (var i = 0; i < _count; i++) {
+            for (var i = 0; i < _count; i++)
+            {
                 if (!predicate(_array[i])) continue;
                 RemoveAt(i);
                 return;
@@ -192,7 +194,8 @@ namespace GameWorkstore.Patterns
 
         public void Remove<T1>(Func<T, T1, bool> predicate, T1 param)
         {
-            for (var i = 0; i < _count; i++) {
+            for (var i = 0; i < _count; i++)
+            {
                 if (!predicate(_array[i], param)) continue;
                 RemoveAt(i);
                 return;
@@ -229,7 +232,7 @@ namespace GameWorkstore.Patterns
         /// <param name="defaultValue"></param>
         public void Empty(T defaultValue)
         {
-            for(var i = 0; i < _count; i++)
+            for (var i = 0; i < _count; i++)
             {
                 _array[i] = defaultValue;
             }
@@ -238,20 +241,17 @@ namespace GameWorkstore.Patterns
 
         public void RemoveAt(int index)
         {
-            if (index >= _count)
-            {
-                return;
-            }
-            for (var i = index; i + 1 < _count; i++)
-            {
-                _array[i] = _array[i + 1];
-            }
+            if (index >= _count) return;
+            var last = _count - 1;
+            _array[index] = _array[last];
+            _array[last] = default;
             _count--;
         }
 
         public bool Remove(T entry)
         {
-            for (var i = 0; i < _count; i++) {
+            for (var i = 0; i < _count; i++)
+            {
                 if (!Equals(_array[i], entry)) continue;
                 RemoveAt(i);
                 return true;
@@ -314,7 +314,7 @@ namespace GameWorkstore.Patterns
                 action(_array[i]);
             }
         }
-        
+
         /// <summary>
         /// Function experimental, avoid use it in production.
         /// </summary>
@@ -363,13 +363,11 @@ namespace GameWorkstore.Patterns
                 array[i + index] = _array[i];
             }
         }
-        
+
         public void CopyTo(Array array, int index)
         {
             CopyTo((T[])array, index);
         }
-
-        public bool IsReadOnly => false;
 
         public IEnumerator GetEnumerator()
         {

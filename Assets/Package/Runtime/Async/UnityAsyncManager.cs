@@ -17,12 +17,12 @@ namespace GameWorkstore.Patterns
         private static List<IAsyncBehaviour> _lateUpdates;
         private static List<IAsyncBehaviour> _fixedUpdates;
 
-        [RuntimeInitializeOnLoadMethod]
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
         static void Initialize()
         {
-            var anchor = new GameObject("UnityAsync Manager").AddComponent<UnityAsyncManager>();
-            anchor.gameObject.hideFlags = HideFlags.HideAndDontSave;
-            DontDestroyOnLoad(anchor.gameObject);
+            var asyncManager = new GameObject("AsyncManager").AddComponent<UnityAsyncManager>();
+            asyncManager.gameObject.hideFlags = HideFlags.HideAndDontSave;
+            DontDestroyOnLoad(asyncManager.gameObject);
 
             FrameCount = 1;
             FixedStepCount = 1;
@@ -33,7 +33,7 @@ namespace GameWorkstore.Patterns
             _lateUpdates = new List<IAsyncBehaviour>(32);
             _fixedUpdates = new List<IAsyncBehaviour>(32);
 
-            Behaviour = anchor.gameObject.AddComponent<AsyncBehaviour>();
+            Behaviour = asyncManager.gameObject.AddComponent<AsyncBehaviour>();
         }
 
         public static void RegisterUpdate(IAsyncBehaviour b)
