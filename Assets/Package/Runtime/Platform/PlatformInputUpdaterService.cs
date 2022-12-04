@@ -1,5 +1,4 @@
 #if UNITY_INPUTSYSTEM_PRESENT
-using UnityEngine;
 using UnityEngine.InputSystem;
 
 namespace GameWorkstore.Patterns
@@ -7,10 +6,9 @@ namespace GameWorkstore.Patterns
     public class PlatformInputUpdaterService : IService
     {
         private PlatformInputService _platformService;
-        private InputActionReference _inputActionPc;
-        private InputActionReference _inputActionConsole;
-        private bool _isInputSet = false;
-        private InputActionReference _inputActionMobile;
+        private InputActionReference _inputActionPc = null;
+        private InputActionReference _inputActionConsole = null;
+        private InputActionReference _inputActionMobile = null;
 
         public override void Postprocess()
         {
@@ -19,26 +17,6 @@ namespace GameWorkstore.Patterns
         public override void Preprocess()
         {
             _platformService = ServiceProvider.GetService<PlatformInputService>();
-            ServiceProvider.GetService<EventService>().Update.Register(OnUpdate);
-        }
-
-        private void OnUpdate()
-        {
-            if (_inputActionMobile && _inputActionMobile.action.WasPerformedThisFrame())
-            {
-                _platformService.UpdatePlatform(PlatformInputService.InputPlatform.MOBILE);
-                return;
-            }
-            if (_inputActionPc && _inputActionPc.action.WasPerformedThisFrame())
-            {
-                _platformService.UpdatePlatform(PlatformInputService.InputPlatform.CONSOLE);
-                return;
-            }
-            if (_inputActionConsole && _inputActionConsole.action.WasPerformedThisFrame())
-            {
-                _platformService.UpdatePlatform(PlatformInputService.InputPlatform.PC);
-                return;
-            }
         }
 
         public void SetInputListener(
@@ -47,13 +25,39 @@ namespace GameWorkstore.Patterns
             InputActionReference console
         )
         {
-            _inputActionMobile = mobile;
-            _inputActionMobile.action.Enable();
-            _inputActionPc = pc;
-            _inputActionPc.action.Enable();
-            _inputActionConsole = console;
-            _inputActionConsole.action.Enable();
-            _isInputSet = true;
+            if (_inputActionMobile == null && mobile != null)
+            {
+                _inputActionMobile = mobile;
+                _inputActionMobile.action.Enable();
+                _inputActionMobile.action.performed += OnMobileInput;
+            }
+            if(_inputActionPc == null && pc != null)
+            {
+                _inputActionPc = pc;
+                _inputActionPc.action.Enable();
+                _inputActionPc.action.performed += OnPcInput;
+            }
+            if(_inputActionConsole == null && console != null)
+            {
+                _inputActionConsole = console;
+                _inputActionConsole.action.Enable();
+                _inputActionConsole.action.performed += OnConsoleInput;
+            }
+        }
+
+        private void OnConsoleInput(InputAction.CallbackContext obj)
+        {
+            _platformService.UpdatePlatform(PlatformInputService.InputPlatform.PC);
+        }
+
+        private void OnPcInput(InputAction.CallbackContext obj)
+        {
+            _platformService.UpdatePlatform(PlatformInputService.InputPlatform.CONSOLE);
+        }
+
+        private void OnMobileInput(InputAction.CallbackContext contect)
+        {
+            _platformService.UpdatePlatform(PlatformInputService.InputPlatform.MOBILE);
         }
     }
 }
