@@ -43,36 +43,43 @@ public class TestBench
         var abstracted = ServiceProvider.GetAbstract<AbstractService>();
         Assert.NotNull(concrete);
         Assert.NotNull(abstracted);
-        Assert.AreEqual(concrete,abstracted);
+        Assert.AreEqual(concrete, abstracted);
     }
 
     [UnityTest]
-    public IEnumerator FunctionCrashesDontPreventOtherFunctionsToExecute() {
+    public IEnumerator FunctionCrashesDontPreventOtherFunctionsToExecute()
+    {
         var evt = ServiceProvider.GetService<EventService>();
         int i = 0;
         //function works
-        evt.QueueAction(() => {
+        evt.QueueAction(() =>
+        {
             i++;
         });
         //function works partially
         bool exploded = false;
-        evt.QueueAction(() => {
+        evt.QueueAction(() =>
+        {
             i++;
-            try {
+            try
+            {
                 Gate gate = null;
                 gate.Release();
-            } catch {
+            }
+            catch
+            {
                 exploded = true;
             }
         });
-        //function not works at all
+        //function will not work at all
         evt.QueueAction(null);
 
-        while (evt.ActionsPerFrame.Count > 0) {
+        while (evt.ActionsPerFrame.Count > 0)
+        {
             yield return null;
         }
-        Assert.AreEqual(true,exploded);
-        Assert.AreEqual(2,i);
+        Assert.AreEqual(true, exploded);
+        Assert.AreEqual(2, i);
     }
 
     [Test]
@@ -86,9 +93,9 @@ public class TestBench
     public void HighSpeedArraySetCapacityAndCountIsInSync()
     {
         var value = new HighSpeedArray<int>(3);
-        value.AddRange(new[]{1,2,3,4,5});
+        value.AddRange(new[] { 1, 2, 3, 4, 5 });
         value.SetCapacity(3);
-        Assert.AreEqual(3,value.Capacity);
-        Assert.AreEqual(3,value.Count);
+        Assert.AreEqual(3, value.Capacity);
+        Assert.AreEqual(3, value.Count);
     }
 }

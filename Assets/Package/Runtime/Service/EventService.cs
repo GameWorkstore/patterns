@@ -14,13 +14,14 @@ namespace GameWorkstore.Patterns
         public Signal ApplicationQuit { get; } = new Signal();
         public Signal FixedUpdate { get; } = new Signal();
         public Signal<bool> ApplicationFocus { get; } = new Signal<bool>();
+        public Signal<bool> ApplicationPause { get; } = new Signal<bool>();
         public Queue<Action> ActionsPerFrame { get; } = new Queue<Action>();
 
-        public bool IsExitApplicationStarted = false;
+        public bool IsApplicationQuittingStarted = false;
 
         public override void Preprocess()
         {
-            if (IsExitApplicationStarted) return;
+            if (IsApplicationQuittingStarted) return;
             _behaviour = new GameObject("EventService").AddComponent<EventServiceMonobehaviour>();
             _behaviour.gameObject.hideFlags = HideFlags.HideAndDontSave;
             _behaviour.EventService = this;
@@ -78,14 +79,19 @@ namespace GameWorkstore.Patterns
         internal void ExecuteApplicationQuit()
         {
             ApplicationQuit.Invoke();
-            IsExitApplicationStarted = true;
+            IsApplicationQuittingStarted = true;
         }
 
         internal void ExecuteApplicationFocus(bool focus)
         {
             ApplicationFocus.Invoke(focus);
         }
-	}
+
+        internal void ExecuteApplicationPause(bool pause)
+        {
+            ApplicationPause.Invoke(pause);
+        }
+    }
 
     public class EventServiceMonobehaviour : MonoBehaviour
     {
@@ -106,17 +112,21 @@ namespace GameWorkstore.Patterns
             EventService.ExecuteApplicationFocus(focus);
         }
 
+        public void OnApplicationPause(bool pause)
+        {
+            EventService.ExecuteApplicationPause(pause);
+        }
         public void OnApplicationQuit()
         {
             EventService.ExecuteApplicationQuit();
         }
 
-		public void FixedUpdate()
-		{
+        public void FixedUpdate()
+        {
             EventService.ExecuteFixedUpdate();
-		}
+        }
 
-		public void OnDestroy()
+        public void OnDestroy()
         {
             ServiceProvider.Shutdown();
         }
