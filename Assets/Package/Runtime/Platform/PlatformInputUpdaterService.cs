@@ -47,12 +47,12 @@ namespace GameWorkstore.Patterns
 
         private void OnConsoleInput(InputAction.CallbackContext obj)
         {
-            _platformService.UpdatePlatform(PlatformInputService.InputPlatform.PC);
+            _platformService.UpdatePlatform(PlatformInputService.InputPlatform.CONSOLE);
         }
 
         private void OnPcInput(InputAction.CallbackContext obj)
         {
-            _platformService.UpdatePlatform(PlatformInputService.InputPlatform.CONSOLE);
+            _platformService.UpdatePlatform(PlatformInputService.InputPlatform.PC);
         }
 
         private void OnMobileInput(InputAction.CallbackContext contect)
