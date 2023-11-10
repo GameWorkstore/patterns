@@ -19,10 +19,4 @@ namespace GameWorkstore.Patterns
 		public static AsyncBehaviour.UnityAwaiter AsyncOp(AsyncOperation op) => UnityAsyncManager.Behaviour.AsyncOp(op);
 		public static AsyncBehaviour.UnityAwaiter Custom(CustomYieldInstruction instruction) => UnityAsyncManager.Behaviour.Custom(instruction);
 	}
-
-	public static class AwaitExtensions
-	{
-		public static AsyncBehaviour.UnityAwaiter GetAwaiter(this AsyncOperation @this) => Await.AsyncOp(@this);
-		public static AsyncBehaviour.UnityAwaiter GetAwaiter(this CustomYieldInstruction @this) => Await.Custom(@this);
-	}
 }
