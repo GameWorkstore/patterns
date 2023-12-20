@@ -28,7 +28,15 @@ namespace GameWorkstore.Patterns
 
             _initialized = true;
             Value = valueT;
-            _onChange.Invoke(valueT);
+            ForceSync();
+        }
+
+        /// <summary>
+        /// Dispatches internal update, even if value is equal.
+        /// </summary>
+        public void ForceSync()
+        {
+            _onChange.Invoke(Value);
         }
 
         /// <summary>
@@ -115,8 +123,17 @@ namespace GameWorkstore.Patterns
 
             _initialized = true;
             Value = valueT;
-            _onChange.Invoke(valueT);
+            ForceSync();
         }
+
+        /// <summary>
+        /// Dispatches internal update, even if value is equal.
+        /// </summary>
+        public void ForceSync()
+        {
+            _onChange.Invoke(Value);
+        }
+        
 
         /// <summary>
         /// Register and Invokes callback with current value.

@@ -18,17 +18,17 @@ public class PropertyTest
         property.Set(targetValue);
     }
 
-    internal class TestClass { }
+    internal class TestClass { public int internalV; }
 
     [Test]
     public void SetPropertyForNullableValues()
     {
         TestClass targetValue = null;
-        void OnPropertyChanged(TestClass v) => Assert.AreEqual(v, targetValue);
+        void onPropertyChanged(TestClass v) => Assert.AreEqual(v, targetValue);
         var property = new PropertyNullable<TestClass>();
 
         //check if property triggers upon register
-        property.Register(OnPropertyChanged);
+        property.Register(onPropertyChanged);
 
         //check if property triggers upon set
         targetValue = new TestClass();
@@ -37,5 +37,22 @@ public class PropertyTest
         //check if property triggers upon set null
         targetValue = null;
         property.Set(targetValue);
+    }
+
+    [Test]
+    public void ForceSync()
+    {
+        int targetValue = 1;
+        void onPropertyChanged(TestClass v) => Assert.AreEqual(targetValue, v.internalV);
+        var targetProperty = new TestClass() { internalV = 1 };
+        var property = new PropertyNullable<TestClass>();
+        property.Set(targetProperty);
+
+        //check if property triggers upon register
+        property.Register(onPropertyChanged);
+
+        targetValue = 2;
+        property.Value.internalV = 2;
+        property.ForceSync();
     }
 }
