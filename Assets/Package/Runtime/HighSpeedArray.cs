@@ -345,7 +345,7 @@ namespace GameWorkstore.Patterns
 
         public T Random()
         {
-            return _count <= 0 ? default : _array[UnityEngine.Random.Range(0, _array.Length)];
+            return _count <= 0 ? default : _array[UnityEngine.Random.Range(0, _count)];
         }
 
         public void CopyTo(T[] array, int index)
