@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEditor.Progress;
 
 namespace GameWorkstore.Patterns
 {
@@ -27,12 +28,21 @@ namespace GameWorkstore.Patterns
         public bool IsSynchronized => false;
         public object SyncRoot { get; } = new object();
 
+        /// <summary>
+        /// Call this function on Initialize for disable the base template.
+        /// </summary>
+        public void EnsureTemplateDisabled()
+        {
+            Template.gameObject.SetActive(false);
+        }
+
         public void SetActiveCount(int desiredCount)
         {
             if (desiredCount < 0)
             {
                 throw new ArgumentException(string.Format("{0} is not a valid value for desiredCount", desiredCount), "desiredCount");
             }
+            if (desiredCount == Count) return;
 
             for (int i = 0; i < desiredCount && i < Count; i++)
             {
@@ -44,7 +54,13 @@ namespace GameWorkstore.Patterns
             }
             for (int i = desiredCount; i < Count; i++)
             {
-                Dispose(this[i]);
+                var d = _array[i];
+                _array.RemoveAt(i);
+                FastDispose(d);
+            }
+            for (int i = 0; i < desiredCount; i++)
+            {
+                _array[i].transform.SetSiblingIndex(i);
             }
         }
 
